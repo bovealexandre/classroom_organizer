@@ -1,15 +1,25 @@
+from utils.card import Card, Deck
 from utils.player import Player
-from utils.card import Deck
 
 
 class Board:
     def __init__(self, players: list[Player]) -> None:
+        """Initialize a Board object.
+
+        Args:
+            players (list): A list of Player objects representing the players in the game.
+        """
         self.players: list[Player] = players
         self.turn_count: int = 0
-        self.active_cards: list = [None] * len(players)
-        self.history_cards: list = []
+        self.active_cards: list[Card] = [] * len(players)
+        self.history_cards: list[Card] = []
 
     def start_game(self) -> None:
+        """Start and manage the game loop.
+
+        This method initializes the deck, shuffles and distributes cards to players, and
+        manages the turns until the game is over.
+        """
         deck: Deck = Deck()
         deck.fill_deck()
         deck.shuffle()
@@ -21,11 +31,11 @@ class Board:
 
             for i, player in enumerate(self.players):
                 card = player.play()
-                self.active_cards[i] = card
+                self.active_cards.append(card)
 
             self.history_cards.extend(self.active_cards)
             print(self.active_cards)
-            self.active_cards = [None] * len(self.players)
+            self.active_cards = [] * len(self.players)
 
             print(len(self.history_cards))
 
