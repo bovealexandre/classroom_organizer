@@ -35,6 +35,25 @@ class Card(Symbol):
         """Return a string representation of the card with color formatting."""
         return f"{Fore.RED if self.color == 'red' else Fore.BLACK} {self.value} {self.icon} {Style.RESET_ALL}"
 
+    def __lt__(self, other) -> bool:
+        values: list[str] = [
+            "A",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "J",
+            "Q",
+            "K",
+        ]
+
+        return values.index(self.value) < values.index(other.value)
+
 
 class Deck:
     def __init__(self) -> None:

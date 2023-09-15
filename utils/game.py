@@ -28,11 +28,16 @@ class Board:
         while True:
             self.turn_count += 1
             print(f"Turn {self.turn_count}")
+            winning_player: int = 0
 
             for i, player in enumerate(self.players):
-                card = player.play()
+                card: Card = player.play()
                 self.active_cards.append(card)
+                if card > self.active_cards[winning_player]:
+                    winning_player = i
 
+            print(f"{self.players[winning_player].name} won the round")
+            self.players[winning_player].add_point()
             self.history_cards.extend(self.active_cards)
             print(self.active_cards)
             self.active_cards = [] * len(self.players)
@@ -40,5 +45,8 @@ class Board:
             print(len(self.history_cards))
 
             if all(player.number_of_cards == 0 for player in self.players):
-                print("Game Over!")
+                winner: Player = self.players[0]
+                for p in self.players:
+                    if p.points > winner.points:
+                        winner = p
                 break

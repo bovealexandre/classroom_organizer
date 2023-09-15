@@ -27,6 +27,9 @@ here is his history {self.history}""".format(
             self=self
         )
 
+    def __lt__(self, other) -> bool:
+        return self.points < other.points
+
     def play(self) -> Card:
         """Simulate a player's turn, playing a random card from their hand.
 
