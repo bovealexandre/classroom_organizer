@@ -36,19 +36,27 @@ here is his history {self.history}""".format(
         Returns:
             Card: The card played by the player.
         """
-        print(f"{self.name}, here are your cards : {self.cards}")
-        play_input: int = int(
-            input(
+
+        while True:
+            print(f"{self.name}, here are your cards : {self.cards}")
+            play_input: str = input(
                 f"{self.name}, It's your turn ! What card do you want to play? (this takes an Int) : "
             )
-        )
-        played_card: Card = self.cards[play_input]
-        # played_card: Card = choice(self.cards)
-        print(f"{self.name} {self.turn_count} played: {played_card}")
-        self.cards.remove(played_card)
-        self.turn_count += 1
-        self.number_of_cards -= 1
-        return played_card
+
+            if not play_input.isdigit():
+                print("Please put a number!")
+                continue
+            if int(play_input) > len(self.cards):
+                print(f"Please put a number between 0 and {str(len(self.cards)-1)}!")
+                continue
+
+            played_card: Card = self.cards[int(play_input)]
+            # played_card: Card = choice(self.cards)
+            print(f"{self.name} {self.turn_count} played: {played_card}")
+            self.cards.remove(played_card)
+            self.turn_count += 1
+            self.number_of_cards -= 1
+            return played_card
 
     def add_point(self) -> None:
         self.points += 1
