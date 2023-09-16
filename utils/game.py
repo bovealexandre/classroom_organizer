@@ -42,11 +42,10 @@ class Board:
             print(self.active_cards)
             self.active_cards = [] * len(self.players)
 
-            print(len(self.history_cards))
-
             if all(player.number_of_cards == 0 for player in self.players):
                 winner: Player = self.players[0]
                 for p in self.players:
                     if p.points > winner.points:
                         winner = p
+                print(f"The winner is {winner.name}")
                 break
